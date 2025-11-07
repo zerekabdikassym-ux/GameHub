@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile — GameHub</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+  <header>
+    <nav id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="tictactoe.html">Tic Tac Toe</a>
+      <a href="2048.html">2048</a>
+      <a href="dino.html">Dino</a>
+      <a href="tanks.html">Tanks</a>
+      <a href="sudoku.html">Sudoku</a>
+      <a href="profile.html">Profile</a>
+      <a href="signup.html">Sign Up</a>
+      <a href="login.html">Log In</a>
+    </nav>
+    <div>
+      <button id="theme-toggle" aria-label="Toggle theme">Dark Mode</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="profile" id="profileWrap">
+      <h2>Your Profile</h2>
+      <div id="info"></div>
+      <div style="margin-top:24px; display:flex; gap:12px; align-items:center;">
+        <button id="btnLogout" style="background:#ef4444; color:#fff; border:1px solid #dc2626">Log Out</button>
+        <a href="index.html" style="color:var(--link-color); text-decoration:none;">Back to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© Amir Abil, Zerek Abdikassym — IT-2403</p>
+  </footer>
+
+  <script src="../JavaScript/auth.js"></script>
+  <script>
+    const info = document.getElementById('info');
+    const current = getCurrentUser();
+    if (!current) {
+      // not logged in
+      location.href = 'login.html';
+    } else {
+      const users = getUsers();
+      const user = users.find(u => u.email.toLowerCase() === current.toLowerCase());
+      if (!user) {
+        // data mismatch: clear and go to login
+        clearCurrentUser();
+        location.href = 'login.html';
+      } else {
+        info.innerHTML = `
+          <div class="field"><strong>Name:</strong> ${user.name}</div>
+          <div class="field"><strong>Email:</strong> ${user.email}</div>
+          <div class="field"><strong>Phone:</strong> ${user.phone ? user.phone : '—'}</div>
+        `;
+      }
+    }
+
+    document.getElementById('btnLogout').addEventListener('click', () => {
+      clearCurrentUser();
+      location.href = 'index.html';
+    });
+  </script>
+
+  <script src="../JavaScript/theme.js"></script>
+</body>
+</html>
