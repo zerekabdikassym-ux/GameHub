@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const locationResponse = await fetch('https://ipapi.co/json/');
       const locationData = await locationResponse.json();
       
-      const city = locationData.city || 'Unknown';
+      const city = Astana || 'Unknown';
       const country = locationData.country_name || '';
       
       const weatherResponse = await fetch(`https://wttr.in/${city}?format=j1`);
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   
   function useFallbackWeather() {
-    cityElement.textContent = 'Almaty, Kazakhstan';
-    tempElement.textContent = '20°C';
-    descElement.textContent = '☀️ Sunny';
+    cityElement.textContent = 'Astana, Kazakhstan';
+    tempElement.textContent = '-5°C';
+    descElement.textContent = 'Cloudy';
   }
   
   
